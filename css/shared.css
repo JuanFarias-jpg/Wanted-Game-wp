@@ -1,7 +1,8 @@
-/* ═══════════════════════════════════════════════
-   WANTED — Shared Styles
-   Variables, reset, nav, footer, utilities
-   ═══════════════════════════════════════════════ */
+/* ================================================
+   WANTED — shared.css
+   Variables globales, reset, nav, footer y
+   utilidades compartidas por todas las paginas
+   ================================================ */
 
 :root {
   --blood:     #7B1515;
@@ -25,7 +26,7 @@ body {
   cursor: crosshair;
 }
 
-/* Noise overlay */
+/* Superposicion de ruido SVG para dar textura de papel viejo */
 body::before {
   content: '';
   position: fixed;
@@ -36,7 +37,10 @@ body::before {
   opacity: 0.35;
 }
 
-/* ── NAV ───────────────────────────────────────── */
+/* ================================================
+   NAV — barra de navegacion fija en la parte
+   superior, con efecto blur de fondo
+   ================================================ */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -76,6 +80,7 @@ nav {
   position: relative;
 }
 
+/* Linea animada que aparece debajo del link activo o en hover */
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -86,11 +91,13 @@ nav {
 }
 
 .nav-links a:hover,
-.nav-links a.active       { color: var(--amber); }
+.nav-links a.active        { color: var(--amber); }
 .nav-links a:hover::after,
 .nav-links a.active::after { width: 100%; }
 
-/* ── FOOTER ────────────────────────────────────── */
+/* ================================================
+   FOOTER
+   ================================================ */
 footer {
   background: #050302;
   padding: 60px 40px;
@@ -140,7 +147,11 @@ footer {
   letter-spacing: 1px;
 }
 
-/* ── SECTION UTILITIES ─────────────────────────── */
+/* ================================================
+   UTILIDADES DE SECCION
+   ================================================ */
+
+/* Etiqueta con lineas decorativas a los lados */
 .section-label {
   font-family: 'Cinzel', serif;
   font-size: 10px;
@@ -174,7 +185,12 @@ footer {
   opacity: 0.5;
 }
 
-/* ── SCROLL REVEAL ─────────────────────────────── */
+/* ================================================
+   SCROLL REVEAL
+   Los elementos con clase .reveal arrancan
+   invisibles; shared.js los activa con la clase
+   .visible cuando entran al viewport
+   ================================================ */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -182,8 +198,11 @@ footer {
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ── RESPONSIVE ────────────────────────────────── */
+/* ================================================
+   RESPONSIVE
+   ================================================ */
 @media (max-width: 768px) {
   nav { padding: 16px 20px; }
+  /* El menu se oculta en movil — implementar hamburger si se necesita */
   .nav-links { display: none; }
 }

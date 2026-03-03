@@ -11,25 +11,26 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Wanted</a>
     <ul class="nav-links">
       <li><a href="#historia">Historia</a></li>
       <li><a href="#mundo">Mundo</a></li>
       <li><a href="#locaciones">Locaciones 3D</a></li>
-      <li><a href="#mecanicas">Mecánicas</a></li>
+      <li><a href="#mecanicas">Mecanicas</a></li>
       <li><a href="#controles">Controles</a></li>
       <li><a href="#equipo">Equipo</a></li>
       <li><a href="devlogs.html">Devlogs</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-sky"></div>
+
+    <!-- Contenedor de estrellas — generadas dinamicamente por index.js -->
     <div class="stars" id="stars"></div>
 
+    <!-- Siluetas SVG del horizonte del desierto -->
     <div class="silhouettes">
       <svg class="cactus" style="left:5%;width:80px;height:180px" viewBox="0 0 80 180"><rect x="35" y="20" width="10" height="160"/><rect x="10" y="60" width="40" height="10"/><rect x="10" y="40" width="10" height="40"/><rect x="60" y="80" width="40" height="10" transform="translate(-20)"/><rect x="60" y="60" width="10" height="40"/></svg>
       <svg class="cactus" style="left:12%;width:50px;height:120px" viewBox="0 0 50 120"><rect x="22" y="10" width="8" height="110"/><rect x="5" y="40" width="25" height="8"/><rect x="5" y="25" width="8" height="30"/></svg>
@@ -41,13 +42,13 @@
       </svg>
     </div>
 
-    <div class="wanted-badge">✦ San Landero — Old West ✦</div>
+    <div class="wanted-badge">San Landero — Old West</div>
 
     <div class="hero-content">
-      <div class="hero-subtitle-top">Un juego de decisiones y redención</div>
+      <div class="hero-subtitle-top">Un juego de decisiones y redencion</div>
       <h1 class="hero-title">WANTED</h1>
       <div class="hero-divider"></div>
-      <p class="hero-tagline">"La venganza no devuelve a los muertos. Pero a veces, es lo único que nos mantiene vivos."</p>
+      <p class="hero-tagline">"La venganza no devuelve a los muertos. Pero a veces, es lo unico que nos mantiene vivos."</p>
       <div style="height:36px"></div>
       <a href="#historia" class="hero-cta"><span>Entrar a San Landero</span></a>
     </div>
@@ -58,110 +59,105 @@
     </div>
   </div>
 
-  <!-- HISTORIA -->
   <div class="story-section" id="historia">
     <div class="story-inner">
       <div class="story-text reveal">
         <div class="section-label">Historia</div>
         <h2 class="section-title">Kennedy<br>Woods</h2>
-        <p>Kennedy Woods es un hombre que viene de un pueblo lejano, dejando tras de él un triste pasado después de haber perdido a su familia en un misterioso incendio.</p>
+        <p>Kennedy Woods es un hombre que viene de un pueblo lejano, dejando tras de el un triste pasado despues de haber perdido a su familia en un misterioso incendio.</p>
         <p>Lleno de ira y en busca de venganza, llega al pueblo de San Landero donde cree que puede estar el culpable de su pasado.</p>
       </div>
       <div class="story-card reveal" style="transition-delay:0.2s">
-        <div class="story-card-title">Misión Principal</div>
+        <div class="story-card-title">Mision Principal</div>
         <h3>Descubre la verdad</h3>
-        <p>Identifica y confronta a los criminales escondidos en el desierto. Cada decisión define quién eres y cómo termina tu historia en San Landero.</p>
+        <p>Identifica y confronta a los criminales escondidos en el desierto. Cada decision define quien eres y como termina tu historia en San Landero.</p>
         <div style="height:24px"></div>
-        <div class="story-card-title">Temáticas</div>
+        <div class="story-card-title">Tematicas</div>
         <p style="font-style:normal;color:rgba(237,224,196,0.6);font-size:14px;line-height:2">
-          Western &nbsp;·&nbsp; Drama &nbsp;·&nbsp; Redención<br>
+          Western &nbsp;·&nbsp; Drama &nbsp;·&nbsp; Redencion<br>
           Consecuencias &nbsp;·&nbsp; Duelo emocional
         </p>
       </div>
     </div>
   </div>
 
-  <!-- MUNDO -->
   <section id="mundo">
     <div class="section-label reveal">El Mundo</div>
     <h2 class="section-title reveal">San Landero</h2>
-    <p class="reveal" style="font-size:18px;color:rgba(237,224,196,0.7);max-width:600px;line-height:1.7">Un pueblo polvoriento en medio del desierto. Cada rincón esconde secretos, aliados y enemigos. Tú decides cómo navegarlo.</p>
+    <p class="reveal" style="font-size:18px;color:rgba(237,224,196,0.7);max-width:600px;line-height:1.7">Un pueblo polvoriento en medio del desierto. Cada rincon esconde secretos, aliados y enemigos. Tu decides como navegarlo.</p>
 
     <div class="zones-grid">
-      <div class="zone-card reveal"><span class="zone-icon">🏜️</span><div class="zone-name">Desierto</div><p class="zone-desc">Donde se esconden los criminales. Campamentos abandonados y ruinas son la clave.</p></div>
-      <div class="zone-card reveal" style="transition-delay:0.1s"><span class="zone-icon">🥃</span><div class="zone-name">Cantina</div><p class="zone-desc">El corazón social del pueblo. Obtén pistas clave y participa en minijuegos.</p></div>
-      <div class="zone-card reveal" style="transition-delay:0.2s"><span class="zone-icon">🐴</span><div class="zone-name">Establo</div><p class="zone-desc">Compite en carreras de caballos y gana recompensas para tu misión.</p></div>
-      <div class="zone-card reveal" style="transition-delay:0.3s"><span class="zone-icon">🏠</span><div class="zone-name">Zona Residencial</div><p class="zone-desc">Conoce a los habitantes. Su confianza es tan valiosa como cualquier arma.</p></div>
-      <div class="zone-card reveal" style="transition-delay:0.4s"><span class="zone-icon">⛓️</span><div class="zone-name">Cárcel</div><p class="zone-desc">Destino de los criminales capturados. Pistas ocultas entre sus paredes.</p></div>
-      <div class="zone-card reveal" style="transition-delay:0.5s"><span class="zone-icon">⛪</span><div class="zone-name">Iglesia</div><p class="zone-desc">Guarda tu partida y mejora tu reputación. El perdón tiene su precio.</p></div>
+      <div class="zone-card reveal"><div class="zone-name">Desierto</div><p class="zone-desc">Donde se esconden los criminales. Campamentos abandonados y ruinas son la clave.</p></div>
+      <div class="zone-card reveal" style="transition-delay:0.1s"><div class="zone-name">Cantina</div><p class="zone-desc">El corazon social del pueblo. Obtén pistas clave y participa en minijuegos.</p></div>
+      <div class="zone-card reveal" style="transition-delay:0.2s"><div class="zone-name">Establo</div><p class="zone-desc">Compite en carreras de caballos y gana recompensas para tu mision.</p></div>
+      <div class="zone-card reveal" style="transition-delay:0.3s"><div class="zone-name">Zona Residencial</div><p class="zone-desc">Conoce a los habitantes. Su confianza es tan valiosa como cualquier arma.</p></div>
+      <div class="zone-card reveal" style="transition-delay:0.4s"><div class="zone-name">Carcel</div><p class="zone-desc">Destino de los criminales capturados. Pistas ocultas entre sus paredes.</p></div>
+      <div class="zone-card reveal" style="transition-delay:0.5s"><div class="zone-name">Iglesia</div><p class="zone-desc">Guarda tu partida y mejora tu reputacion. El perdon tiene su precio.</p></div>
     </div>
   </section>
 
-  <!-- 3D VIEWER -->
   <div class="viewer-section" id="locaciones">
     <div class="viewer-inner">
       <div class="section-label reveal">Explorar</div>
       <h2 class="section-title reveal">Locaciones 3D</h2>
       <p class="reveal" style="font-size:17px;color:rgba(237,224,196,0.6);max-width:600px;line-height:1.7;margin-bottom:40px">
-        Explora los edificios de San Landero en 3D. Arrastra para rotar. Puedes subir tus propios modelos <code style="color:var(--amber);background:rgba(200,131,42,0.1);padding:2px 6px">.glb</code> exportados desde Blender o Unreal.
+        Explora los edificios de San Landero en 3D. Arrastra para rotar.
       </p>
 
-      <!-- Tabs -->
+      <!-- Cada boton llama switchLocation(n) donde n es el indice en el array LOCATIONS de index.js -->
       <div class="viewer-tabs">
         <button class="viewer-tab" onclick="switchLocation(0)">Cantina</button>
         <button class="viewer-tab" onclick="switchLocation(1)">Iglesia</button>
-        <button class="viewer-tab" onclick="switchLocation(2)">Cárcel</button>
+        <button class="viewer-tab" onclick="switchLocation(2)">Carcel</button>
         <button class="viewer-tab" onclick="switchLocation(3)">Establo</button>
         <button class="viewer-tab" onclick="switchLocation(4)">Desierto</button>
         <button class="viewer-tab" onclick="switchLocation(5)">Residencial</button>
       </div>
 
-      <!-- Stage -->
       <div class="viewer-stage" id="viewerStage">
+        <!-- Three.js renderiza la escena 3D en este canvas -->
         <canvas class="viewer-canvas" id="viewerCanvas" style="display:none"></canvas>
 
+        <!-- Visible mientras Three.js no ha terminado de cargar -->
         <div class="viewer-overlay" id="viewerPlaceholder">
-          <span class="viewer-placeholder-icon">🏚️</span>
           <div class="viewer-placeholder-text">Visor 3D</div>
-          <div class="viewer-hint">Haz scroll hasta aquí para cargar</div>
+          <div class="viewer-hint">Haz scroll hasta aqui para cargar</div>
         </div>
 
-        <!-- Status toast -->
+        <!-- Muestra si se cargo el .glb real o el modelo procedural de respaldo -->
         <div id="viewerStatus" style="
           position:absolute; top:16px; left:16px;
           font-family:'Cinzel',serif; font-size:10px; letter-spacing:2px;
           color:rgba(200,131,42,0.8); background:rgba(10,4,0,0.75);
           border:1px solid rgba(200,131,42,0.2); padding:6px 14px;
-          pointer-events:none; opacity:0;
-          transition:opacity 0.4s;
+          pointer-events:none; opacity:0; transition:opacity 0.4s;
           text-transform:uppercase;
         "></div>
 
         <div class="viewer-controls">
-          <button class="viewer-ctrl-btn" onclick="resetCamera()">↺ Reset</button>
-          <button class="viewer-ctrl-btn" onclick="autoRotate=!autoRotate">⟳ Auto</button>
+          <button class="viewer-ctrl-btn" onclick="resetCamera()">Reset camara</button>
+          <button class="viewer-ctrl-btn" onclick="autoRotate=!autoRotate">Auto rotacion</button>
+          <!-- Permite previsualizar un .glb local sin necesidad de subirlo al repositorio -->
           <label class="viewer-ctrl-btn" style="cursor:pointer">
-            📂 Tu modelo .glb
+            Cargar .glb local
             <input type="file" accept=".glb,.gltf" style="display:none" onchange="loadCustomModel(this.files[0])">
           </label>
         </div>
       </div>
 
-      <!-- Info bar -->
       <div class="viewer-info">
         <div class="viewer-location-name" id="viewerLocationName">Cantina</div>
-        <div class="viewer-location-desc" id="viewerLocationDesc">El corazón social de San Landero. Aquí corren el whiskey y las pistas.</div>
+        <div class="viewer-location-desc" id="viewerLocationDesc">El corazon social de San Landero.</div>
       </div>
     </div>
   </div>
 
-  <!-- MECANICAS -->
   <div class="mechanics-section" id="mecanicas">
     <div class="mechanics-inner">
-      <div class="section-label reveal">Mecánicas</div>
+      <div class="section-label reveal">Mecanicas</div>
       <h2 class="section-title reveal">Tus decisiones<br>tienen peso</h2>
       <div class="reputation-bar reveal">
-        <div class="rep-title">Sistema de Reputación</div>
+        <div class="rep-title">Sistema de Reputacion</div>
         <div class="rep-scale">
           <div class="rep-evil"></div>
           <div class="rep-neutral"></div>
@@ -175,18 +171,17 @@
       </div>
       <div class="choices-grid">
         <div class="choice-card kill reveal">
-          <h4>🔫 Ejecutar</h4>
-          <p>Más dinero. Mejores armas. Pero el pueblo te temerá y los diálogos se cerrarán.</p>
+          <h4>Ejecutar</h4>
+          <p>Mas dinero. Mejores armas. Pero el pueblo te temera y los dialogos se cerraran.</p>
         </div>
         <div class="choice-card spare reveal" style="transition-delay:0.15s">
-          <h4>⛓️ Encarcelar</h4>
-          <p>Ganas la confianza de los habitantes. Nuevos diálogos y actividades se desbloquean.</p>
+          <h4>Encarcelar</h4>
+          <p>Ganas la confianza de los habitantes. Nuevos dialogos y actividades se desbloquean.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- CONTROLES -->
   <section id="controles">
     <div class="section-label reveal">Jugabilidad</div>
     <h2 class="section-title reveal">Controles</h2>
@@ -196,34 +191,47 @@
       <div class="control-row reveal" style="transition-delay:0.1s"><div class="key">Espacio</div><div class="control-action">Saltar</div></div>
       <div class="control-row reveal" style="transition-delay:0.15s"><div class="key">Ctrl</div><div class="control-action">Agacharse</div></div>
       <div class="control-row reveal" style="transition-delay:0.2s"><div class="key">E</div><div class="control-action">Interactuar con NPCs y objetos</div></div>
-      <div class="control-row reveal" style="transition-delay:0.25s"><div class="key">Click ←</div><div class="control-action">Disparar / Atacar</div></div>
-      <div class="control-row reveal" style="transition-delay:0.3s"><div class="key">Click →</div><div class="control-action">Apuntar</div></div>
+      <div class="control-row reveal" style="transition-delay:0.25s"><div class="key">Click izquierdo</div><div class="control-action">Disparar / Atacar</div></div>
+      <div class="control-row reveal" style="transition-delay:0.3s"><div class="key">Click derecho</div><div class="control-action">Apuntar</div></div>
       <div class="control-row reveal" style="transition-delay:0.35s"><div class="key">M</div><div class="control-action">Abrir mapa</div></div>
-      <div class="control-row reveal" style="transition-delay:0.4s"><div class="key">Esc</div><div class="control-action">Menú de pausa</div></div>
+      <div class="control-row reveal" style="transition-delay:0.4s"><div class="key">Esc</div><div class="control-action">Menu de pausa</div></div>
       <div class="control-row reveal" style="transition-delay:0.45s"><div class="key">RT / R2</div><div class="control-action">Disparar (control)</div></div>
     </div>
   </section>
 
-  <!-- EQUIPO -->
   <section id="equipo" class="team-section">
     <div class="section-label reveal">Desarrolladores</div>
     <h2 class="section-title reveal">El Equipo</h2>
-    <p class="reveal" style="font-size:17px;color:rgba(237,224,196,0.6);font-style:italic">Universidad Autónoma de Nuevo León — Facultad de Ciencias Físico Matemáticas</p>
+    <p class="reveal" style="font-size:17px;color:rgba(237,224,196,0.6);font-style:italic">Universidad Autonoma de Nuevo Leon — Facultad de Ciencias Fisico Matematicas</p>
     <div class="team-grid">
-      <div class="team-card reveal"><div class="team-avatar">1</div><div class="team-name">[Nombre 1]</div><div class="team-role">Diseño & Desarrollo</div><div class="team-placeholder">Matrícula: ________</div></div>
-      <div class="team-card reveal" style="transition-delay:0.15s"><div class="team-avatar">2</div><div class="team-name">[Nombre 2]</div><div class="team-role">Arte & Modelado 3D</div><div class="team-placeholder">Matrícula: ________</div></div>
-      <div class="team-card reveal" style="transition-delay:0.3s"><div class="team-avatar">3</div><div class="team-name">[Nombre 3]</div><div class="team-role">Programación</div><div class="team-placeholder">Matrícula: ________</div></div>
+      <div class="team-card reveal">
+        <div class="team-avatar">1</div>
+        <div class="team-name">Juan Pablo Farias Garcia</div>
+        <div class="team-role">Programacion, Diseno y Desarrollo</div>
+        <div class="team-placeholder">Matricula: 2177641</div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.15s">
+        <div class="team-avatar">2</div>
+        <div class="team-name">Kenya Lulu Hernandez Huerta</div>
+        <div class="team-role">Arte y Modelado 3D</div>
+        <div class="team-placeholder">Matricula: 2132928</div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.3s">
+        <div class="team-avatar">3</div>
+        <div class="team-name">Jesus Francisco Valdes Lara</div>
+        <div class="team-role">Programacion, Diseno y Desarrollo</div>
+        <div class="team-placeholder">Matricula: 2104704</div>
+      </div>
     </div>
     <div style="margin-top:60px" class="reveal">
-      <div class="ornament">✦ ✦ ✦</div>
+      <div class="ornament">— — —</div>
       <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;color:rgba(200,131,42,0.5);text-transform:uppercase;margin-top:20px">Motor: Unreal Engine 5 &nbsp;·&nbsp; Modelado: Blender &nbsp;·&nbsp; Plataforma: PC</p>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Wanted</div>
-    <div class="footer-uanl">Universidad Autónoma de Nuevo León — FCFM</div>
+    <div class="footer-uanl">Universidad Autonoma de Nuevo Leon — FCFM</div>
     <ul class="footer-links">
       <li><a href="#historia">Historia</a></li>
       <li><a href="#mundo">Mundo</a></li>
@@ -231,7 +239,7 @@
       <li><a href="devlogs.html">Devlogs</a></li>
       <li><a href="https://juanpfarias14.wixsite.com/wantedvault" target="_blank">Sitio Oficial</a></li>
     </ul>
-    <p class="footer-copy">© 2026 Wanted — Proyecto académico UANL · Todos los derechos reservados</p>
+    <p class="footer-copy">© 2026 Wanted — Proyecto academico UANL · Todos los derechos reservados</p>
   </footer>
 
   <script src="js/shared.js"></script>

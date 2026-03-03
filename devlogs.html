@@ -11,34 +11,30 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Wanted</a>
     <ul class="nav-links">
       <li><a href="index.html#historia">Historia</a></li>
       <li><a href="index.html#mundo">Mundo</a></li>
       <li><a href="index.html#locaciones">Locaciones 3D</a></li>
-      <li><a href="index.html#mecanicas">Mecánicas</a></li>
+      <li><a href="index.html#mecanicas">Mecanicas</a></li>
       <li><a href="devlogs.html" class="active">Devlogs</a></li>
     </ul>
   </nav>
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
-    <div class="page-header-label">✦ Diario de Desarrollo ✦</div>
+    <div class="page-header-label">Diario de Desarrollo</div>
     <h1>Devlogs</h1>
     <p>El camino hacia San Landero, documentado semana a semana.</p>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
 
-    <!-- POSTS -->
     <div>
+      <!-- Los posts se renderizan aqui dinamicamente desde devlogs.json por devlogs.js -->
       <div class="devlog-list" id="devlogList"></div>
     </div>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
       <div class="sidebar-card reveal">
@@ -46,6 +42,8 @@
         <button class="new-post-btn" onclick="openModal()"><span>+ Publicar entrada</span></button>
       </div>
 
+      <!-- Las barras de progreso se calculan automaticamente
+           segun los tags de los posts publicados en devlogs.json -->
       <div class="sidebar-card reveal" style="transition-delay:0.1s">
         <div class="sidebar-title">Progreso del Proyecto</div>
         <div class="milestone-list">
@@ -62,11 +60,11 @@
             <div class="milestone-bar"><div class="milestone-fill" id="bar-assets" style="width:0%"></div></div>
           </div>
           <div class="milestone">
-            <div class="milestone-header"><span class="milestone-name">Mecánicas</span><span class="milestone-pct" id="pct-mecanicas">0%</span></div>
+            <div class="milestone-header"><span class="milestone-name">Mecanicas</span><span class="milestone-pct" id="pct-mecanicas">0%</span></div>
             <div class="milestone-bar"><div class="milestone-fill" id="bar-mecanicas" style="width:0%"></div></div>
           </div>
           <div class="milestone">
-            <div class="milestone-header"><span class="milestone-name">UI / Menús</span><span class="milestone-pct" id="pct-ui">0%</span></div>
+            <div class="milestone-header"><span class="milestone-name">UI / Menus</span><span class="milestone-pct" id="pct-ui">0%</span></div>
             <div class="milestone-bar"><div class="milestone-fill" id="bar-ui" style="width:0%"></div></div>
           </div>
         </div>
@@ -75,8 +73,8 @@
       <div class="sidebar-card reveal" style="transition-delay:0.2s">
         <div class="sidebar-title">Entregas</div>
         <div class="entrega-list">
-          <div class="entrega-item"><div class="entrega-dot dot-done"></div><span>1ª Entrega — White Room + Landscape</span></div>
-          <div class="entrega-item"><div class="entrega-dot dot-pending"></div><span>2ª Entrega — Assets + Partículas + Menús</span></div>
+          <div class="entrega-item"><div class="entrega-dot dot-done"></div><span>1a Entrega — White Room + Landscape</span></div>
+          <div class="entrega-item"><div class="entrega-dot dot-pending"></div><span>2a Entrega — Assets + Particulas + Menus</span></div>
           <div class="entrega-item"><div class="entrega-dot dot-future"></div><span>Proyecto Final — .exe completo</span></div>
         </div>
       </div>
@@ -84,7 +82,6 @@
     </aside>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">Wanted</div>
     <ul class="footer-links">
@@ -96,20 +93,20 @@
     <p class="footer-copy">© 2026 Wanted — UANL FCFM</p>
   </footer>
 
-  <!-- MODAL -->
+  <!-- Modal para generar una nueva entrada -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
     <div class="modal">
       <div class="modal-header">
         <h2>Nueva Entrada</h2>
-        <button class="modal-close" onclick="closeModal()">×</button>
+        <button class="modal-close" onclick="closeModal()">x</button>
       </div>
-      <!-- FORM -->
+
+      <!-- Formulario de nueva entrada -->
       <div id="modalForm">
         <div class="modal-body">
-
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Título</label>
+              <label class="form-label">Titulo</label>
               <input class="form-input" id="postTitle" type="text" placeholder="Ej: White Room completado">
             </div>
             <div class="form-group">
@@ -127,9 +124,9 @@
             <div class="tags-selector">
               <button class="tag-btn" data-tag="unreal"    onclick="toggleTag(this)">Unreal Engine</button>
               <button class="tag-btn" data-tag="blender"   onclick="toggleTag(this)">Blender</button>
-              <button class="tag-btn" data-tag="design"    onclick="toggleTag(this)">Diseño</button>
+              <button class="tag-btn" data-tag="design"    onclick="toggleTag(this)">Diseno</button>
               <button class="tag-btn" data-tag="art"       onclick="toggleTag(this)">Arte</button>
-              <button class="tag-btn" data-tag="mechanics" onclick="toggleTag(this)">Mecánicas</button>
+              <button class="tag-btn" data-tag="mechanics" onclick="toggleTag(this)">Mecanicas</button>
               <button class="tag-btn" data-tag="ui"        onclick="toggleTag(this)">UI</button>
             </div>
           </div>
@@ -140,8 +137,8 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Lo que se logró</label>
-            <textarea class="form-textarea" id="postLogros" placeholder="• Elemento 1&#10;• Elemento 2" style="min-height:100px"></textarea>
+            <label class="form-label">Lo que se logro</label>
+            <textarea class="form-textarea" id="postLogros" placeholder="Elemento 1&#10;Elemento 2" style="min-height:100px"></textarea>
           </div>
 
           <div class="form-group">
@@ -151,52 +148,43 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">Contraseña de admin</label>
-            <input class="form-input" id="postPassword" type="password" placeholder="Solo el equipo puede publicar">
-            <div id="passError" style="display:none;color:#C0392B;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;margin-top:8px;">✕ Contraseña incorrecta</div>
+            <label class="form-label">Contrasena de admin</label>
+            <input class="form-input" id="postPassword" type="password" placeholder="Contrasena del equipo">
+            <div id="passError" style="display:none;color:#C0392B;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;margin-top:8px;">Contrasena incorrecta</div>
           </div>
 
           <button class="submit-btn" onclick="submitPost()">Generar JSON</button>
         </div>
       </div>
 
-      <!-- JSON OUTPUT -->
+      <!-- Panel de salida — muestra el JSON generado para pegar en devlogs.json -->
       <div id="jsonOutput" style="display:none">
         <div class="modal-body">
           <p style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:16px">
-            ✓ JSON generado
+            JSON generado
           </p>
           <p style="font-size:15px;color:rgba(237,224,196,0.7);line-height:1.7;margin-bottom:20px">
-            Copia este contenido y pégalo en <code style="color:var(--amber);background:rgba(200,131,42,0.1);padding:2px 8px">devlogs.json</code> en GitHub, reemplazando todo el contenido del archivo. Luego haz commit y push.
+            Copia este contenido y pegalo en <code style="color:var(--amber);background:rgba(200,131,42,0.1);padding:2px 8px">devlogs.json</code>
+            reemplazando todo el contenido del archivo. Luego haz commit y push a GitHub.
           </p>
           <pre id="jsonOutputCode" style="
-            background:rgba(0,0,0,0.5);
-            border:1px solid rgba(200,131,42,0.2);
-            padding:16px;
-            font-size:12px;
-            color:rgba(237,224,196,0.8);
-            overflow-x:auto;
-            max-height:300px;
-            overflow-y:auto;
-            white-space:pre;
-            font-family:monospace;
-            margin-bottom:16px;
+            background:rgba(0,0,0,0.5); border:1px solid rgba(200,131,42,0.2);
+            padding:16px; font-size:12px; color:rgba(237,224,196,0.8);
+            overflow-x:auto; max-height:300px; overflow-y:auto;
+            white-space:pre; font-family:monospace; margin-bottom:16px;
           "></pre>
           <div style="display:flex;gap:12px">
             <button id="copyBtn" class="submit-btn" onclick="copyJson()" style="flex:1">Copiar JSON</button>
             <button class="submit-btn" onclick="closeModal()" style="flex:1;background:rgba(42,26,14,0.8);border:1px solid rgba(200,131,42,0.3)">Cerrar</button>
           </div>
-          <p style="font-size:13px;color:rgba(237,224,196,0.4);font-style:italic;margin-top:16px;line-height:1.6">
-            💡 Para agregar imágenes: súbelas a la carpeta <code style="color:var(--amber)">images/devlogs/</code> del repo y agrega su ruta en el campo <code style="color:var(--amber)">"images"</code> del JSON.
-          </p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- LIGHTBOX -->
+  <!-- Lightbox para ver imagenes en pantalla completa -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <button class="lightbox-close" onclick="closeLightbox()">x</button>
     <img id="lbImg" src="" alt="Screenshot">
     <div class="lightbox-caption" id="lbCaption"></div>
   </div>

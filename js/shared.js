@@ -1,11 +1,14 @@
-// ═══════════════════════════════════════════════
-// Scroll reveal + nav highlight 
-// ═══════════════════════════════════════════════
+// ================================================
+// WANTED — shared.js
+// Scroll reveal y resaltado de nav activo
+// Usado por todas las paginas del sitio
+// ================================================
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
+  // Activa la clase .visible en elementos .reveal
+  // cuando entran al area visible del navegador
+  const reveals  = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -14,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   reveals.forEach(el => observer.observe(el));
 
-  // Nav active highlight (only on index where anchors exist)
+  // Resalta el link de nav correspondiente a la
+  // seccion visible mientras el usuario hace scroll
   const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
   if (navLinks.length > 0) {
     window.addEventListener('scroll', () => {
