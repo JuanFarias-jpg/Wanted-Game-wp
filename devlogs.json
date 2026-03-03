@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "title": "Inicio del proyecto",
+    "date": "3 de marzo de 2026",
+    "entrega": "Primera Entrega",
+    "tags": ["unreal", "design"],
+    "content": "Comenzamos el desarrollo de Wanted. Creamos el proyecto en Unreal Engine 5.2 usando el Game Animation Sample como base. Configuramos el repositorio y el sitio web.",
+    "logros": [
+      "Proyecto creado en UE5.2 con Game Animation Sample",
+      "White Room de San Landero iniciado",
+      "Sitio web publicado en GitHub Pages"
+    ],
+    "progress": 15,
+    "images": [
+  { "url": "images/devlogs/Screenshot 2026-03-02 234032.png", "caption": "White Room terminado" }
+]
+  }
+]

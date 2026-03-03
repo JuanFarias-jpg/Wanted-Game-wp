@@ -1,4 +1,7 @@
-/* SHARED STYLES BETWEEN PAGES */
+/* ═══════════════════════════════════════════════
+   WANTED — Shared Styles
+   Variables, reset, nav, footer, utilities
+   ═══════════════════════════════════════════════ */
 
 :root {
   --blood:     #7B1515;

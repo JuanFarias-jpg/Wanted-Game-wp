@@ -1,6 +1,5 @@
 // ═══════════════════════════════════════════════
-// WANTED — shared.js
-// Scroll reveal + nav highlight (used by all pages)
+// Scroll reveal + nav highlight 
 // ═══════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {

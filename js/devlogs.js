@@ -1,19 +1,18 @@
 // ═══════════════════════════════════════════════
-// WANTED — devlogs.js
-// Post management, image upload, lightbox
+
 // ═══════════════════════════════════════════════
 
-const STORAGE_KEY   = 'wanted_devlogs_v1';
 const ADMIN_PASSWORD = 'sanlandero2026'; 
 
-// ── STORAGE ──────────────────────────────────────
-function loadPosts() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-  catch { return []; }
-}
-
-function savePosts(posts) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+// ── LOAD FROM JSON ────────────────────────────────
+async function loadPosts() {
+  try {
+    const res = await fetch(`devlogs.json?_=${Date.now()}`);
+    if (!res.ok) throw new Error('no json');
+    return await res.json();
+  } catch {
+    return [];
+  }
 }
 
 // ── RENDER ────────────────────────────────────────
@@ -29,8 +28,8 @@ const TAG_LABELS = {
   mechanics: 'Mecánicas', ui: 'UI'
 };
 
-function renderPosts() {
-  const posts     = loadPosts();
+async function renderPosts() {
+  const posts     = await loadPosts();
   const container = document.getElementById('devlogList');
 
   if (posts.length === 0) {
@@ -38,16 +37,18 @@ function renderPosts() {
       <div class="empty-state">
         <span class="empty-icon">📜</span>
         <h3>Sin entradas todavía</h3>
-        <p>Documenta tu progreso publicando<br>la primera entrada del devlog.</p>
+        <p>Agrega tu primer devlog al archivo<br><code style="color:var(--amber);background:rgba(200,131,42,0.1);padding:2px 8px">devlogs.json</code></p>
       </div>`;
     return;
   }
 
-  container.innerHTML = posts.map((post, i) => `
+  const sorted = [...posts].sort((a, b) => b.id - a.id);
+
+  container.innerHTML = sorted.map((post, i) => `
     <div class="devlog-card reveal" style="animation-delay:${i * 0.1}s">
       <div class="devlog-card-header">
         <div class="devlog-meta">
-          <div class="devlog-number">Devlog #${posts.length - i} &nbsp;·&nbsp; ${escHtml(post.entrega)}</div>
+          <div class="devlog-number">Devlog #${post.id} &nbsp;·&nbsp; ${escHtml(post.entrega)}</div>
           <div class="devlog-title">${escHtml(post.title)}</div>
         </div>
         <div class="devlog-date">${escHtml(post.date)}</div>
@@ -60,18 +61,14 @@ function renderPosts() {
 
       <div class="devlog-body">
         <p>${escHtml(post.content).replace(/\n/g, '<br>')}</p>
-        ${post.logros ? `
-        <ul>
-          ${post.logros.split('\n').filter(l => l.trim()).map(l =>
-            `<li>${escHtml(l.replace(/^[•\-*]\s*/, ''))}</li>`
-          ).join('')}
-        </ul>` : ''}
+        ${post.logros?.length ? `
+        <ul>${post.logros.map(l => `<li>${escHtml(l)}</li>`).join('')}</ul>` : ''}
 
         ${post.images?.length ? `
         <div class="devlog-images">
           ${post.images.map(img => `
-            <div class="devlog-img-wrap" onclick="openLightbox('${img.data}','${escHtml(img.caption||'')}')">
-              <img src="${img.data}" alt="Screenshot devlog" loading="lazy">
+            <div class="devlog-img-wrap" onclick="openLightbox('${escHtml(img.url)}','${escHtml(img.caption||'')}')">
+              <img src="${escHtml(img.url)}" alt="Screenshot" loading="lazy">
               ${img.caption ? `<div class="img-caption">${escHtml(img.caption)}</div>` : ''}
             </div>
           `).join('')}
@@ -81,26 +78,16 @@ function renderPosts() {
       <div class="devlog-footer-row">
         <div class="devlog-progress">
           <span class="progress-label">Progreso</span>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width:${post.progress || 0}%"></div>
-          </div>
-          <span class="progress-pct">${post.progress || 0}%</span>
+          <div class="progress-bar"><div class="progress-fill" style="width:${post.progress||0}%"></div></div>
+          <span class="progress-pct">${post.progress||0}%</span>
         </div>
-        <button
-          onclick="deletePost(${i})"
-          style="background:none;border:none;color:rgba(237,224,196,0.2);font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;cursor:pointer;transition:color 0.2s"
-          onmouseover="this.style.color='var(--blood)'"
-          onmouseout="this.style.color='rgba(237,224,196,0.2)'">
-          ELIMINAR
-        </button>
+        <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:rgba(200,131,42,0.3)">ID ${post.id}</span>
       </div>
     </div>
   `).join('');
 
-  // Re-observe reveals
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
-
-  updateProgressBars(posts);
+  updateProgressBars(sorted);
 }
 
 const revealObserver = new IntersectionObserver(entries => {
@@ -108,7 +95,6 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 function updateProgressBars(posts) {
-  if (!posts.length) return;
   const counts = { whiteroom: 0, landscape: 0, assets: 0, mecanicas: 0, ui: 0 };
   posts.forEach(p => {
     if (!p.tags) return;
@@ -135,6 +121,8 @@ function openModal() {
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
+  document.getElementById('jsonOutput').style.display = 'none';
+  document.getElementById('modalForm').style.display = 'block';
 }
 
 function closeModalOutside(e) {
@@ -143,7 +131,7 @@ function closeModalOutside(e) {
 
 function toggleTag(btn) { btn.classList.toggle('selected'); }
 
-function submitPost() {
+async function submitPost() {
   const pass = document.getElementById('postPassword').value;
   if (pass !== ADMIN_PASSWORD) {
     document.getElementById('passError').style.display = 'block';
@@ -156,78 +144,37 @@ function submitPost() {
   const content = document.getElementById('postContent').value.trim();
   if (!title || !content) { alert('Por favor completa el título y contenido.'); return; }
 
-  const tags    = [...document.querySelectorAll('.tag-btn.selected')].map(b => b.dataset.tag);
-  const now     = new Date();
-  const dateStr = now.toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
+  const existing = await loadPosts();
+  const nextId   = existing.length > 0 ? Math.max(...existing.map(p => p.id)) + 1 : 1;
+  const tags     = [...document.querySelectorAll('.tag-btn.selected')].map(b => b.dataset.tag);
+  const logros   = document.getElementById('postLogros').value.trim()
+    .split('\n').filter(l => l.trim()).map(l => l.replace(/^[•\-*]\s*/, ''));
+  const dateStr  = new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
 
-  const post = {
+  const newPost = {
+    id:       nextId,
     title,
-    content,
-    logros:   document.getElementById('postLogros').value.trim(),
-    tags,
-    entrega:  document.getElementById('postEntrega').value,
-    progress: parseInt(document.getElementById('postProgress').value),
-    images:   pendingImages.slice(),
     date:     dateStr,
-    timestamp: now.getTime(),
+    entrega:  document.getElementById('postEntrega').value,
+    tags,
+    content,
+    logros,
+    progress: parseInt(document.getElementById('postProgress').value),
+    images:   []
   };
 
-  const posts = loadPosts();
-  posts.unshift(post);
-  savePosts(posts);
+  const updated = [...existing, newPost];
+  document.getElementById('jsonOutputCode').textContent = JSON.stringify(updated, null, 2);
+  document.getElementById('modalForm').style.display = 'none';
+  document.getElementById('jsonOutput').style.display = 'block';
+}
 
-  // Reset form
-  ['postTitle','postContent','postLogros','postPassword'].forEach(id => {
-    document.getElementById(id).value = '';
+function copyJson() {
+  navigator.clipboard.writeText(document.getElementById('jsonOutputCode').textContent).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ Copiado';
+    setTimeout(() => btn.textContent = 'Copiar JSON', 2000);
   });
-  document.getElementById('postProgress').value = 25;
-  document.getElementById('progressVal').textContent = '25';
-  document.getElementById('previewGrid').innerHTML = '';
-  document.querySelectorAll('.tag-btn.selected').forEach(b => b.classList.remove('selected'));
-  pendingImages = [];
-
-  closeModal();
-  renderPosts();
-}
-
-function deletePost(index) {
-  const pass = prompt('Contraseña de admin:');
-  if (pass !== ADMIN_PASSWORD) { alert('Contraseña incorrecta.'); return; }
-  if (!confirm('¿Eliminar esta entrada?')) return;
-  const posts = loadPosts();
-  posts.splice(index, 1);
-  savePosts(posts);
-  renderPosts();
-}
-
-// ── IMAGE HANDLING ────────────────────────────────
-let pendingImages = [];
-
-function handleImages(files) {
-  const remaining = 5 - pendingImages.length;
-  Array.from(files).slice(0, remaining).forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      pendingImages.push({ data: e.target.result, caption: '' });
-      renderPreview();
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-function renderPreview() {
-  document.getElementById('previewGrid').innerHTML = pendingImages.map((img, i) => `
-    <div class="preview-item">
-      <img src="${img.data}" alt="preview">
-      <button class="preview-remove" onclick="removeImage(${i})">×</button>
-    </div>
-  `).join('');
-}
-
-function removeImage(index) {
-  pendingImages.splice(index, 1);
-  renderPreview();
 }
 
 // ── LIGHTBOX ──────────────────────────────────────
@@ -246,23 +193,6 @@ function closeLightbox() {
 // ── INIT ──────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   renderPosts();
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeLightbox(); closeModal(); }
-  });
-
-  // Drag-and-drop upload
-  const uploadArea = document.getElementById('uploadArea');
-  if (uploadArea) {
-    uploadArea.addEventListener('dragover',  e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
-    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
-    uploadArea.addEventListener('drop', e => {
-      e.preventDefault();
-      uploadArea.classList.remove('dragover');
-      handleImages(e.dataTransfer.files);
-    });
-  }
-
-  // Init reveal observer for static elements
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); closeModal(); } });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 });
