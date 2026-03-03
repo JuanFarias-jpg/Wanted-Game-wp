@@ -1,0 +1,186 @@
+/* SHARED STYLES BETWEEN PAGES */
+
+:root {
+  --blood:     #7B1515;
+  --rust:      #A0390E;
+  --amber:     #C8832A;
+  --sand:      #D4A96A;
+  --parchment: #EDE0C4;
+  --dark:      #100C08;
+  --brown:     #2A1A0E;
+  --mid:       #3D2510;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--parchment);
+  font-family: 'Crimson Text', Georgia, serif;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* Noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* ── NAV ───────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(10,4,0,0.92) 0%, rgba(10,4,0,0.6) 100%);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(200,131,42,0.08);
+}
+
+.nav-logo {
+  font-family: 'Rye', serif;
+  font-size: 20px;
+  color: var(--amber);
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sand);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--amber);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active       { color: var(--amber); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+
+/* ── FOOTER ────────────────────────────────────── */
+footer {
+  background: #050302;
+  padding: 60px 40px;
+  text-align: center;
+  border-top: 1px solid rgba(200,131,42,0.1);
+}
+
+.footer-logo {
+  font-family: 'Rye', serif;
+  font-size: 32px;
+  color: var(--amber);
+  margin-bottom: 16px;
+  text-shadow: 0 0 40px rgba(200,80,10,0.4);
+}
+
+.footer-uanl {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: rgba(200,131,42,0.4);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(237,224,196,0.35);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--amber); }
+
+.footer-copy {
+  font-size: 13px;
+  color: rgba(237,224,196,0.2);
+  letter-spacing: 1px;
+}
+
+/* ── SECTION UTILITIES ─────────────────────────── */
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 8px;
+  color: var(--rust);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-label::before { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--rust)); }
+.section-label::after  { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--rust), transparent); }
+
+.section-title {
+  font-family: 'Rye', serif;
+  font-size: clamp(36px, 6vw, 64px);
+  color: var(--parchment);
+  line-height: 1;
+  margin-bottom: 40px;
+  text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+}
+
+.ornament {
+  text-align: center;
+  color: var(--rust);
+  font-size: 18px;
+  letter-spacing: 16px;
+  margin: 20px 0;
+  opacity: 0.5;
+}
+
+/* ── SCROLL REVEAL ─────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+}
