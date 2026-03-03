@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WANTED — San Landero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blood: #7B1515;
+      --rust: #A0390E;
+      --amber: #C8832A;
+      --sand: #D4A96A;
+      --parchment: #EDE0C4;
+      --dark: #100C08;
+      --brown: #2A1A0E;
+      --mid: #3D2510;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--parchment);
+      font-family: 'Crimson Text', Georgia, serif;
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* NOISE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 60%, #3D1A00 0%, #1A0800 50%, #0A0400 100%);
+    }
+
+    .hero-sky {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 50% 100%, #7B2D00 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 50% 95%, #C8520A 0%, transparent 50%),
+        linear-gradient(180deg, #050204 0%, #0D0600 30%, #2A0D00 65%, #5C1A00 85%, #8B3000 100%);
+    }
+
+    /* STARS */
+    .stars {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--dur, 3s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* CACTUS SILHOUETTES */
+    .silhouettes {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 45%;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .cactus {
+      position: absolute;
+      bottom: 0;
+      fill: #080403;
+    }
+
+    /* WANTED POSTER EFFECT */
+    .wanted-badge {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 8px;
+      color: var(--amber);
+      text-transform: uppercase;
+      opacity: 0.7;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-subtitle-top {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(10px, 2vw, 14px);
+      letter-spacing: 12px;
+      color: var(--amber);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: slideDown 1s ease 0.5s forwards;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: 'Rye', serif;
+      font-size: clamp(80px, 18vw, 180px);
+      color: var(--parchment);
+      line-height: 0.85;
+      letter-spacing: -2px;
+      text-shadow:
+        0 0 80px rgba(200, 80, 10, 0.6),
+        0 0 160px rgba(200, 80, 10, 0.3),
+        4px 4px 0 var(--blood),
+        8px 8px 0 rgba(100, 0, 0, 0.5);
+      opacity: 0;
+      animation: titleReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+    }
+
+    @keyframes titleReveal {
+      0% { opacity: 0; transform: scale(0.8) translateY(30px); filter: blur(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+    }
+
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 0.7; }
+    }
+
+    .hero-tagline {
+      font-family: 'Crimson Text', serif;
+      font-size: clamp(16px, 3vw, 22px);
+      font-style: italic;
+      color: var(--sand);
+      margin-top: 24px;
+      letter-spacing: 1px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.8s forwards;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-divider {
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      margin: 28px auto;
+      opacity: 0;
+      animation: fadeIn 1s ease 2s forwards;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--parchment);
+      border: 1px solid var(--amber);
+      padding: 14px 40px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s;
+      opacity: 0;
+      animation: fadeIn 1s ease 2.2s forwards;
+    }
+
+    .hero-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--rust);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-cta:hover::before { transform: scaleX(1); }
+    .hero-cta:hover { color: white; }
+    .hero-cta span { position: relative; z-index: 1; }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s ease 3s forwards;
+    }
+
+    .scroll-hint span {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: var(--amber);
+      opacity: 0.6;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(180deg, var(--amber), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(10,4,0,0.9) 0%, transparent 100%);
+      backdrop-filter: blur(4px);
+    }
+
+    .nav-logo {
+      font-family: 'Rye', serif;
+      font-size: 20px;
+      color: var(--amber);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--sand);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--amber);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--amber); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 8px;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::before, .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rust));
+    }
+
+    .section-label::after {
+      background: linear-gradient(90deg, var(--rust), transparent);
+    }
+
+    .section-title {
+      font-family: 'Rye', serif;
+      font-size: clamp(36px, 6vw, 64px);
+      color: var(--parchment);
+      line-height: 1;
+      margin-bottom: 40px;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+    }
+
+    /* STORY SECTION */
+    .story-section {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--brown) 50%, var(--dark) 100%);
+      max-width: 100%;
+      padding: 120px 0;
+    }
+
+    .story-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .story-text p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: rgba(237, 224, 196, 0.85);
+      margin-bottom: 20px;
+    }
+
+    .story-text p:first-of-type::first-letter {
+      font-family: 'Rye', serif;
+      font-size: 72px;
+      float: left;
+      line-height: 0.75;
+      margin-right: 12px;
+      color: var(--rust);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    }
+
+    .story-card {
+      background: linear-gradient(135deg, rgba(42,26,14,0.9), rgba(16,12,8,0.95));
+      border: 1px solid rgba(200, 131, 42, 0.2);
+      padding: 40px;
+      position: relative;
+    }
+
+    .story-card::before, .story-card::after {
+      content: '✦';
+      position: absolute;
+      color: var(--amber);
+      font-size: 12px;
+    }
+
+    .story-card::before { top: 12px; left: 16px; }
+    .story-card::after { bottom: 12px; right: 16px; }
+
+    .story-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 6px;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .story-card h3 {
+      font-family: 'Rye', serif;
+      font-size: 28px;
+      color: var(--parchment);
+      margin-bottom: 16px;
+    }
+
+    .story-card p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(237, 224, 196, 0.7);
+      font-style: italic;
+    }
+
+    /* FEATURES / ZONES */
+    .zones-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 60px;
+    }
+
+    .zone-card {
+      background: rgba(42,26,14,0.5);
+      border: 1px solid rgba(200, 131, 42, 0.1);
+      padding: 36px 28px;
+      position: relative;
+      transition: background 0.3s, border-color 0.3s;
+      cursor: default;
+    }
+
+    .zone-card:hover {
+      background: rgba(61, 37, 16, 0.8);
+      border-color: rgba(200, 131, 42, 0.4);
+    }
+
+    .zone-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: block;
+      filter: sepia(1) saturate(2) hue-rotate(-10deg);
+    }
+
+    .zone-name {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .zone-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(237, 224, 196, 0.65);
+    }
+
+    /* MECHANICS */
+    .mechanics-section {
+      background: var(--brown);
+      max-width: 100%;
+      padding: 120px 0;
+    }
+
+    .mechanics-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .reputation-bar {
+      margin-top: 60px;
+      background: rgba(10,4,0,0.6);
+      border: 1px solid rgba(200,131,42,0.15);
+      padding: 40px;
+    }
+
+    .rep-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 6px;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .rep-scale {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 8px;
+      border-radius: 0;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .rep-evil {
+      flex: 1;
+      height: 100%;
+      background: linear-gradient(90deg, var(--blood), var(--rust));
+    }
+
+    .rep-neutral {
+      flex: 0.4;
+      height: 100%;
+      background: var(--mid);
+    }
+
+    .rep-good {
+      flex: 1;
+      height: 100%;
+      background: linear-gradient(90deg, #4A6B2A, #6B9B3A);
+    }
+
+    .rep-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--sand);
+      opacity: 0.7;
+    }
+
+    .choices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .choice-card {
+      padding: 28px;
+      border-left: 3px solid;
+      background: rgba(10,4,0,0.4);
+    }
+
+    .choice-card.kill { border-color: var(--blood); }
+    .choice-card.spare { border-color: #4A7A2A; }
+
+    .choice-card h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .choice-card.kill h4 { color: var(--blood); }
+    .choice-card.spare h4 { color: #6B9B3A; }
+
+    .choice-card p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(237,224,196,0.65);
+    }
+
+    /* CONTROLS */
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin-top: 50px;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 24px;
+      background: rgba(42,26,14,0.4);
+      border: 1px solid rgba(200,131,42,0.08);
+      transition: background 0.2s;
+    }
+
+    .control-row:hover { background: rgba(61,37,16,0.6); }
+
+    .key {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: rgba(200,131,42,0.15);
+      border: 1px solid rgba(200,131,42,0.4);
+      color: var(--amber);
+      padding: 4px 10px;
+      min-width: 80px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .control-action {
+      font-size: 15px;
+      color: rgba(237,224,196,0.75);
+    }
+
+    /* TEAM */
+    .team-section {
+      text-align: center;
+    }
+
+    .team-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+
+    .team-card {
+      background: rgba(42,26,14,0.6);
+      border: 1px solid rgba(200,131,42,0.15);
+      padding: 36px 32px;
+      width: 240px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .team-card:hover {
+      border-color: rgba(200,131,42,0.5);
+      transform: translateY(-4px);
+    }
+
+    .team-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rust), var(--blood));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-family: 'Rye', serif;
+      font-size: 22px;
+      color: var(--parchment);
+    }
+
+    .team-name {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--parchment);
+      margin-bottom: 8px;
+    }
+
+    .team-role {
+      font-size: 13px;
+      color: var(--amber);
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    .team-placeholder {
+      font-size: 12px;
+      color: rgba(200,131,42,0.4);
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+      margin-top: 8px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #050302;
+      padding: 60px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(200,131,42,0.1);
+    }
+
+    .footer-logo {
+      font-family: 'Rye', serif;
+      font-size: 32px;
+      color: var(--amber);
+      margin-bottom: 20px;
+      text-shadow: 0 0 40px rgba(200, 80, 10, 0.4);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 30px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: rgba(237,224,196,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--amber); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(237,224,196,0.25);
+      letter-spacing: 1px;
+    }
+
+    .footer-uanl {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: rgba(200,131,42,0.4);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    /* DIVIDER ORNAMENT */
+    .ornament {
+      text-align: center;
+      color: var(--rust);
+      font-size: 18px;
+      letter-spacing: 16px;
+      margin: 20px 0;
+      opacity: 0.5;
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      .story-inner { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+      .zones-grid { grid-template-columns: 1fr; }
+      .choices-grid { grid-template-columns: 1fr; }
+      .controls-grid { grid-template-columns: 1fr; }
+      .mechanics-inner { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Wanted</a>
+    <ul class="nav-links">
+      <li><a href="#historia">Historia</a></li>
+      <li><a href="#mundo">Mundo</a></li>
+      <li><a href="#mecanicas">Mecánicas</a></li>
+      <li><a href="#controles">Controles</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+      <li><a href="devlogs.html">Devlogs</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-sky"></div>
+
+    <!-- Stars -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Cactus silhouettes -->
+    <div class="silhouettes">
+      <svg class="cactus" style="left:5%; width:80px; height:180px" viewBox="0 0 80 180"><rect x="35" y="20" width="10" height="160"/><rect x="10" y="60" width="40" height="10"/><rect x="10" y="40" width="10" height="40"/><rect x="60" y="80" width="40" height="10" transform="translate(-20)"/><rect x="60" y="60" width="10" height="40"/></svg>
+      <svg class="cactus" style="left:12%; width:50px; height:120px" viewBox="0 0 50 120"><rect x="22" y="10" width="8" height="110"/><rect x="5" y="40" width="25" height="8"/><rect x="5" y="25" width="8" height="30"/></svg>
+      <svg class="cactus" style="right:8%; width:90px; height:200px" viewBox="0 0 90 200"><rect x="40" y="10" width="10" height="190"/><rect x="10" y="70" width="45" height="10"/><rect x="10" y="45" width="10" height="45"/><rect x="55" y="90" width="35" height="10"/><rect x="80" y="65" width="10" height="40"/></svg>
+      <svg class="cactus" style="right:18%; width:55px; height:130px" viewBox="0 0 55 130"><rect x="24" y="15" width="8" height="115"/><rect x="8" y="50" width="30" height="8"/><rect x="8" y="32" width="8" height="32"/></svg>
+      <svg class="cactus" style="left:50%; width:40px; height:100px; transform:translateX(-50%)" viewBox="0 0 40 100"><rect x="18" y="10" width="6" height="90"/></svg>
+
+      <!-- Ground -->
+      <svg style="position:absolute;bottom:0;left:0;right:0;width:100%;height:60px" viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path d="M0,40 Q180,20 360,35 Q540,50 720,30 Q900,15 1080,38 Q1260,55 1440,32 L1440,60 L0,60 Z" fill="#080403"/>
+      </svg>
+    </div>
+
+    <div class="wanted-badge">✦ San Landero — Old West ✦</div>
+
+    <div class="hero-content">
+      <div class="hero-subtitle-top">Un juego de decisiones y redención</div>
+      <h1 class="hero-title">WANTED</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-tagline">"La venganza no devuelve a los muertos. Pero a veces, es lo único que nos mantiene vivos."</p>
+      <div style="height:36px"></div>
+      <a href="#historia" class="hero-cta"><span>Entrar a San Landero</span></a>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- HISTORIA -->
+  <div class="story-section" id="historia">
+    <div class="story-inner">
+      <div class="story-text reveal">
+        <div class="section-label">Historia</div>
+        <h2 class="section-title">Kennedy<br>Woods</h2>
+        <p>Kennedy Woods es un hombre que viene de un pueblo lejano, dejando tras de él un triste pasado después de haber perdido a su familia en un misterioso incendio.</p>
+        <p>Lleno de ira y en busca de venganza, llega al pueblo de San Landero donde cree que puede estar el culpable de su pasado.</p>
+      </div>
+      <div class="story-card reveal" style="transition-delay: 0.2s">
+        <div class="story-card-title">Misión Principal</div>
+        <h3>Descubre la verdad</h3>
+        <p>Identifica y confronta a los criminales escondidos en el desierto. Cada decisión define quién eres y cómo termina tu historia en San Landero.</p>
+        <div style="height:24px"></div>
+        <div class="story-card-title">Temáticas</div>
+        <p style="font-style:normal; color: rgba(237,224,196,0.6); font-size:14px; line-height:2">
+          Western &nbsp;·&nbsp; Drama &nbsp;·&nbsp; Redención<br>
+          Consecuencias &nbsp;·&nbsp; Duelo emocional
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUNDO -->
+  <section id="mundo">
+    <div class="section-label reveal">El Mundo</div>
+    <h2 class="section-title reveal">San Landero</h2>
+    <p class="reveal" style="font-size:18px; color: rgba(237,224,196,0.7); max-width:600px; line-height:1.7">Un pueblo polvoriento en medio del desierto. Cada rincón esconde secretos, aliados y enemigos. Tú decides cómo navegarlo.</p>
+
+    <div class="zones-grid">
+      <div class="zone-card reveal">
+        <span class="zone-icon">🏜️</span>
+        <div class="zone-name">Desierto</div>
+        <p class="zone-desc">Donde se esconden los criminales. Campamentos abandonados y ruinas son la clave para encontrar a los culpables.</p>
+      </div>
+      <div class="zone-card reveal" style="transition-delay:0.1s">
+        <span class="zone-icon">🥃</span>
+        <div class="zone-name">Cantina</div>
+        <p class="zone-desc">El corazón social del pueblo. Obtén pistas clave y participa en minijuegos con los lugareños.</p>
+      </div>
+      <div class="zone-card reveal" style="transition-delay:0.2s">
+        <span class="zone-icon">🐴</span>
+        <div class="zone-name">Establo</div>
+        <p class="zone-desc">Compite en carreras de caballos y gana recompensas que te ayudarán en tu misión de venganza.</p>
+      </div>
+      <div class="zone-card reveal" style="transition-delay:0.3s">
+        <span class="zone-icon">🏠</span>
+        <div class="zone-name">Zona Residencial</div>
+        <p class="zone-desc">Conoce a los habitantes de San Landero. Su confianza es tan valiosa como cualquier arma.</p>
+      </div>
+      <div class="zone-card reveal" style="transition-delay:0.4s">
+        <span class="zone-icon">⛓️</span>
+        <div class="zone-name">Cárcel</div>
+        <p class="zone-desc">Destino de los criminales capturados. También puedes encontrar pistas ocultas entre sus paredes.</p>
+      </div>
+      <div class="zone-card reveal" style="transition-delay:0.5s">
+        <span class="zone-icon">⛪</span>
+        <div class="zone-name">Iglesia</div>
+        <p class="zone-desc">Guarda tu partida y mejora tu reputación. El perdón tiene su propio precio en San Landero.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MECANICAS -->
+  <div class="mechanics-section" id="mecanicas">
+    <div class="mechanics-inner">
+      <div class="section-label reveal">Mecánicas</div>
+      <h2 class="section-title reveal">Tus decisiones<br>tienen peso</h2>
+
+      <div class="reputation-bar reveal">
+        <div class="rep-title">Sistema de Reputación</div>
+        <div class="rep-scale">
+          <div class="rep-evil"></div>
+          <div class="rep-neutral"></div>
+          <div class="rep-good"></div>
+        </div>
+        <div class="rep-labels">
+          <span>Sanguinario</span>
+          <span>Neutral</span>
+          <span>Noble</span>
+        </div>
+      </div>
+
+      <div class="choices-grid">
+        <div class="choice-card kill reveal">
+          <h4>🔫 Ejecutar</h4>
+          <p>Más dinero. Mejores armas. Pero el pueblo te temerá y los diálogos se cerrarán. La venganza tiene un costo.</p>
+        </div>
+        <div class="choice-card spare reveal" style="transition-delay:0.15s">
+          <h4>⛓️ Encarcelar</h4>
+          <p>Ganas la confianza de los habitantes. Nuevos diálogos y actividades se desbloquean. El camino del honor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROLES -->
+  <section id="controles">
+    <div class="section-label reveal">Jugabilidad</div>
+    <h2 class="section-title reveal">Controles</h2>
+
+    <div class="controls-grid">
+      <div class="control-row reveal"><div class="key">W A S D</div><div class="control-action">Movimiento</div></div>
+      <div class="control-row reveal" style="transition-delay:0.05s"><div class="key">Shift</div><div class="control-action">Correr</div></div>
+      <div class="control-row reveal" style="transition-delay:0.1s"><div class="key">Espacio</div><div class="control-action">Saltar</div></div>
+      <div class="control-row reveal" style="transition-delay:0.15s"><div class="key">Ctrl</div><div class="control-action">Agacharse</div></div>
+      <div class="control-row reveal" style="transition-delay:0.2s"><div class="key">E</div><div class="control-action">Interactuar con NPCs y objetos</div></div>
+      <div class="control-row reveal" style="transition-delay:0.25s"><div class="key">Click ←</div><div class="control-action">Disparar / Atacar</div></div>
+      <div class="control-row reveal" style="transition-delay:0.3s"><div class="key">Click →</div><div class="control-action">Apuntar</div></div>
+      <div class="control-row reveal" style="transition-delay:0.35s"><div class="key">M</div><div class="control-action">Abrir mapa</div></div>
+      <div class="control-row reveal" style="transition-delay:0.4s"><div class="key">Esc</div><div class="control-action">Menú de pausa</div></div>
+      <div class="control-row reveal" style="transition-delay:0.45s"><div class="key">RT / R2</div><div class="control-action">Disparar (control)</div></div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section id="equipo" class="team-section">
+    <div class="section-label reveal">Desarrolladores</div>
+    <h2 class="section-title reveal">El Equipo</h2>
+    <p class="reveal" style="font-size:17px; color:rgba(237,224,196,0.6); font-style:italic">Universidad Autónoma de Nuevo León — Facultad de Ciencias Físico Matemáticas</p>
+
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-avatar">1</div>
+        <div class="team-name">[Nombre 1]</div>
+        <div class="team-role">Diseño & Desarrollo</div>
+        <div class="team-placeholder">Matrícula: ________</div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.15s">
+        <div class="team-avatar">2</div>
+        <div class="team-name">[Nombre 2]</div>
+        <div class="team-role">Arte & Modelado 3D</div>
+        <div class="team-placeholder">Matrícula: ________</div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.3s">
+        <div class="team-avatar">3</div>
+        <div class="team-name">[Nombre 3]</div>
+        <div class="team-role">Programación</div>
+        <div class="team-placeholder">Matrícula: ________</div>
+      </div>
+    </div>
+
+    <div style="margin-top:60px" class="reveal">
+      <div class="ornament">✦ ✦ ✦</div>
+      <p style="font-family:'Cinzel',serif; font-size:11px; letter-spacing:4px; color:rgba(200,131,42,0.5); text-transform:uppercase; margin-top:20px">Motor: Unreal Engine 5 &nbsp;·&nbsp; Modelado: Blender &nbsp;·&nbsp; Plataforma: PC</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Wanted</div>
+    <div class="footer-uanl">Universidad Autónoma de Nuevo León — FCFM</div>
+    <ul class="footer-links">
+      <li><a href="#historia">Historia</a></li>
+      <li><a href="#mundo">Mundo</a></li>
+      <li><a href="#mecanicas">Mecánicas</a></li>
+      <li><a href="#controles">Controles</a></li>
+      <li><a href="https://juanpfarias14.wixsite.com/wantedvault" target="_blank">Sitio Oficial</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Wanted — Proyecto académico UANL · Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // Generate stars
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 120; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      star.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        top: ${Math.random() * 70}%;
+        left: ${Math.random() * 100}%;
+        --dur: ${Math.random() * 4 + 2}s;
+        --delay: ${Math.random() * 4}s;
+      `;
+      starsContainer.appendChild(star);
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth nav highlight
+    const sections = document.querySelectorAll('[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 200) {
+          current = section.id;
+        }
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--amber)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
